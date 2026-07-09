@@ -1,4 +1,4 @@
-# CellDynaMo Suite
+# CellDynaMo v2.0 Suite
 
 A single-file, browser-based tool for building and visualizing mitotic spindle simulations. Open `config_tool11.html` (or your renamed copy) in a modern browser — no installation, no server required.
 
