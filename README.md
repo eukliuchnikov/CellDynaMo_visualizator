@@ -79,7 +79,6 @@ Every atom type found in the PSF (MT, kinetochores, chromatid bodies, poles, plu
 - **Material** dropdown (Standard/Phong/Toon/Wireframe/Glass)
 - **Radius** (nm)
 - **Duplicate** — makes an independent copy of the component (useful for coloring a subset differently); duplicated rows can be **Remove**d
-- **Spheres/Surface** toggle (kinetochores only)
 
 ### Playback
 Bottom-left overlay (drag by its header, minimize with `–`):
