@@ -53,8 +53,8 @@ The 3D viewport updates live as you edit the geometry, MT, chromosome and regula
 
 ### Getting started
 1. From the launcher, click **Trajectory Visualizer**.
-2. In the left panel, under **Load Files**, load your **PSF** (topology) file, then your **DCD** (trajectory) file. Playback and the 3D scene populate once both are loaded.
-3. PSF lines that have no segname/name/type (e.g. `3337 3337 Cell 0.000000 1.0000`) are accepted: they keep their place in the atom list but do not create a component. If the DCD contains fewer atoms than the PSF, a warning is added to the status bar, because the missing atoms cannot be drawn.
+2. In the left panel, under **Load Files**, load your **PSF** (topology) file, then your **DCD** (trajectory) file. Playback and the 3D scene appear once both are loaded.
+3. PSF lines that have no segname/name/type are accepted: they keep their place in the atom list but do not create a component. If the DCD contains fewer atoms than the PSF, a warning is added to the status bar, because the missing atoms cannot be drawn.
 
 ### Optional overlays
 - **Motors** — load a separate PSF + DCD pair containing motor-protein atoms (Dynein, Chromokinesin, CENP-E, Ndc80, identified by atom name). These appear as extra entries in the Components list.
