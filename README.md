@@ -16,7 +16,7 @@ Use the **← back arrow** (top-left) to return to the launcher at any time, and
 1. From the launcher, click **Configurator**.
 2. Pick a case at the top of the left panel:
    - **Prometaphase** — fully supported (two spindle poles).
-   - **One Centrosome** — fully supported (a single pole, drawn at (0, 0, 0) in the preview; see below).
+   - **One Centrosome** — fully supported (a single pole, drawn at (0, 0, 0) in the preview).
    - **Anaphase** — under development.
 3. Once Prometaphase or One Centrosome is selected, the parameter panel and the live 3D preview appear.
 
@@ -37,12 +37,6 @@ Click a section header to expand/collapse it. *Run & Output* is open by default;
 | **Langevin Dynamics** | `lang_ts` (time step, ps), spring constants `k_spring_mt` and `k_spring_kt` (pN/nm), `k_stiff_mem` (membrane repulsion, pN), `temp` (K), `viscosity` |
 
 The 3D viewport updates live as you edit the geometry, MT, chromosome and regulatory-protein values (the run, checkpoint, Monte-Carlo and Langevin parameters only go into the exported file). If regulatory-protein values are enabled, a legend is available.
-
-### Prometaphase vs One Centrosome
-- **Prometaphase** writes `one_pole_spindle no`; **One Centrosome** writes `one_pole_spindle yes`.
-- In One Centrosome the single pole is placed at (0, 0, 0) and its MTs radiate in all directions. This is for visualization purposes only.
-- `pole_distance` and the **Pole Dynamics** settings are greyed out in One Centrosome, because `one_pole_spindle` overrides the other pole settings. Their values are still written to the file.
-- `pole_count` defaults to **2** for Prometaphase and **1** for One Centrosome. The default is applied when you switch case or press **Reset Configuration**; you can still type another value.
 
 ### Viewport controls
 - **Left-drag**: rotate • **Right-drag**: pan • **Scroll**: zoom
