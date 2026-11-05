@@ -1,10 +1,10 @@
-# CellDynaMo v2.0 Suite
+# CellDynaMo Suite
 
-A single-file, browser-based tool for building and visualizing mitotic spindle simulations. Open `config_tool11.html` (or your renamed copy) in a modern browser — no installation, no server required.
+A single-file, browser-based tool for building and visualizing mitotic spindle simulations. Open `config_tool11_4.html` (or your renamed copy) in a modern browser — no installation, no server required.
 
 From the launcher screen you can go to:
-- **Configurator** — build a starting cell/spindle setup and export it as a `.conf` file for the simulation engine.
-- **Trajectory Visualizer** — load PSF + DCD simulation output and play it back in 3D, with optional motor and force-vector overlays.
+- **Configurator** — build a starting cell/spindle setup and export it as a `conf.conf` file for the simulation engine.
+- **Trajectory Visualizer** — load PSF + DCD simulation output and play it back in 3D, with optional motor, microtubule-modification and force-vector overlays.
 
 Use the **← back arrow** (top-left) to return to the launcher at any time, and the **sun/moon toggle** (top-right) to switch light/dark mode.
 
@@ -15,30 +15,44 @@ Use the **← back arrow** (top-left) to return to the launcher at any time, and
 ### Getting started
 1. From the launcher, click **Configurator**.
 2. Pick a case at the top of the left panel:
-   - **Prometaphase** — fully supported.
-   - **Anaphase** / **One Centrosome** — placeholders, marked "under development."
-3. Once Prometaphase is selected, the parameter panel and the live 3D preview appear.
+   - **Prometaphase** — fully supported (two spindle poles).
+   - **One Centrosome** — fully supported (a single pole, drawn at (0, 0, 0) in the preview; see below).
+   - **Anaphase** — placeholder, marked "under development."
+3. Once Prometaphase or One Centrosome is selected, the parameter panel and the live 3D preview appear.
 
 ### Parameter sections (left panel)
-Click a section header to expand/collapse it.
+Click a section header to expand/collapse it. *Run & Output* is open by default; the other new sections start collapsed.
 
 | Section | What it controls |
 |---|---|
-| **Ellipsoid & Poles** | Cell shape (`ellipse_a/b/c`), spindle pole separation and size |
-| **Microtubules (MT)** | Number/thickness/length/color intensity of MT fibers per pole, and number of K-fibers (length and color intensity are only for the visualizaton purposes and won't affect the configuration file) |
+| **Run & Output** | `device` (GPU id), `rseed` (random seed), `traj_name` (output name, used in the output file names), `total_t` (total simulation time, s), `dcd_freq` (a frame is saved every `<value>` s of cell time), `mt_len_output`, `membrane_shape` |
+| **Checkpoints** | `savecheckpoint`, `checkpoint_freq` (s of model time), `autocontinue` (restart from the last save if one exists), `timelapse_checkpoints` |
+| **Ellipsoid & Poles** | Cell shape (`ellipse_a/b/c`), spindle pole separation (`pole_distance`), pole size (`pole_radius`) and `pole_count` |
+| **Pole Dynamics** | `poles_free` (poles move due to thermal fluctuations), `poles_dist_rate` (nm/s) and `poles_angle_rate` (deg/s). The two rates are greyed out while `poles_free` is `no` |
+| **Microtubules (MT)** | Number/thickness/length/color intensity of MT fibers per pole, `max_mt_length` (max number of cylinders in a microtubule), `start_length` (min initial MT length, nm) and number of K-fibers (length and color intensity are only for the visualizaton purposes and won't affect the configuration file) |
 | **Chromatid Core** | Number of chromatids (must be even), kinetochore radius, contour length |
 | **Chromosome Kinetics** | One sub-panel per chromosome — position (X/Y/Z) and orientation (X/Y/Z angle in radians). Panels rebuild automatically when you change the chromatid count |
-| **Regulatory Proteins** | Toggle chromokinesins, CENP-E (+ phosphorylated state), dynein, Ndc80, Aurora A/B kinase clouds on/off |
+| **Regulatory Proteins** | Toggle chromokinesins, CENP-E (+ phosphorylated state, + phosphatase), dynein, Ndc80 (+ phosphatase, + number of initially phosphorylated sites), Aurora A/B kinase clouds on/off |
+| **Monte-Carlo & Chemistry** | `sv_size` (subvolume size, nm), MT rate constants `k_growth`, `k_shorten`, `k_catastrophe`, `k_rescue` (1/s), `aurora_concentration` and `phosphatase_concentration` (µM) |
+| **Langevin Dynamics** | `lang_ts` (time step, ps), spring constants `k_spring_mt` and `k_spring_kt` (pN/nm), `k_stiff_mem` (membrane repulsion, pN), `temp` (K), `viscosity` |
 
-The 3D viewport updates live as you edit values. A legend appears bottom-left whenever any regulatory protein is enabled.
+The 3D viewport updates live as you edit the geometry, MT, chromosome and regulatory-protein values (the run, checkpoint, Monte-Carlo and Langevin parameters only go into the exported file). A legend appears bottom-left whenever any regulatory protein is enabled.
+
+### Prometaphase vs One Centrosome
+- **Prometaphase** writes `one_pole_spindle no`; **One Centrosome** writes `one_pole_spindle yes`.
+- In One Centrosome the single pole is placed at (0, 0, 0) and its MTs radiate in all directions. This is for visualization purposes only.
+- `pole_distance` and the **Pole Dynamics** settings are greyed out in One Centrosome, because `one_pole_spindle` overrides the other pole settings. Their values are still written to the file.
+- `pole_count` defaults to **2** for Prometaphase and **1** for One Centrosome. The default is applied when you switch case or press **Reset Configuration**; you can still type another value.
 
 ### Viewport controls
 - **Left-drag**: rotate • **Right-drag**: pan • **Scroll**: zoom
 - **⟲ Update & Align View** (top button): re-centers and reframes the camera on the current configuration.
 
 ### Exporting
-- **Download .conf**: saves your current parameters as a tab-separated `config.conf` file, ready for the simulation engine.
-- **Reset Configuration**: restores all Prometaphase parameters to their defaults.
+- **Download .conf**: saves your current parameters as `conf.conf`. The file is built from a built-in copy of the engine's reference config file, so the section headers, comments, blank lines, tab/space layout and Windows (CRLF) line endings are preserved and only the values change. One block of six lines (`kinetochoreN_move_x/y/z`, `xN/yN/zN_angle`) is written per chromosome (chromatids ÷ 2).
+- The output file name placeholders (`output/dcd/<traj_name>.psf`, etc.) are kept as they are; the engine substitutes `traj_name`.
+- Three parameters that the Configurator had before, but that are not in the reference file, are still exported as extra lines: `kin_radius` and `contour_length` (after `kin_count`) and `auroraB` (after `auroraA`).
+- **Reset Configuration**: restores all parameters of the selected case (Prometaphase or One Centrosome) to their defaults.
 
 ---
 
@@ -47,9 +61,15 @@ The 3D viewport updates live as you edit values. A legend appears bottom-left wh
 ### Getting started
 1. From the launcher, click **Trajectory Visualizer**.
 2. In the left panel, under **Load Files**, load your **PSF** (topology) file, then your **DCD** (trajectory) file. Playback and the 3D scene populate once both are loaded.
+3. PSF lines that have no segname/name/type (e.g. `3337 3337 Cell 0.000000 1.0000`) are accepted: they keep their place in the atom list but do not create a component. If the DCD contains fewer atoms than the PSF, a warning is added to the status bar, because the missing atoms cannot be drawn.
 
 ### Optional overlays
 - **Motors** — load a separate PSF + DCD pair containing motor-protein atoms (Dynein, Chromokinesin, CENP-E, Ndc80, identified by atom name). These appear as extra entries in the Components list.
+- **Microtubules modifications** — load a separate PSF + DCD pair with modified microtubules. Atoms named `DMT` (or with segname `DMT`) form the **D-MT** component, atoms named `TMT` form the **T-MT** component.
+  - Tick **Enable** to turn the modification on: the regular **MT** component is unchecked, and **D-MT** (same color as MT) and **T-MT** (royalblue) are shown.
+  - Untick **Enable** to turn it off: **D-MT** and **T-MT** are hidden and **MT** is checked again.
+  - D-MT and T-MT are drawn like MT (cylinders between bonded particles); particles with no bond partner are drawn as small spheres. Their rows are marked **MT-MOD** in the Components list.
+  - D-MT and T-MT particles cannot be picked with the label/distance/angle tools.
 - **Forces** — load a separate PSF + DCD pair of TAIL/HEAD atom pairs to show force vectors in a small picture-in-picture window.
   - **Chromosomes** field: type `all`, a single number (`2`), a range (`1-3`), or a list (`1,3,6`) to choose which chromosomes' force vectors are shown.
   - **Scale bar axis — Dynamic vs Stable**:
@@ -58,7 +78,7 @@ The 3D viewport updates live as you edit values. A legend appears bottom-left wh
   - Check **Show force inset window** to display it; drag it by its header, resize it with the corner handle or the Size fields, and minimize it with the `–` button.
 
 ### Components panel
-Every atom type found in the PSF (MT, kinetochores, chromatid bodies, poles, plus any loaded motors) gets its own row:
+Every atom type found in the PSF (MT, kinetochores, chromatid bodies, poles, plus any loaded motors and MT modifications) gets its own row. The spindle pole is recognized by the atom name `Pole` (case-insensitive; `POLE`, `POL` and `pole1` are also accepted, in the name, segname, resname or type column):
 - Checkbox to show/hide
 - Color swatch (click to open the color/brightness picker)
 - Atom index ranges shown (e.g. `Idx 1-40`)
@@ -73,7 +93,7 @@ Bottom-left overlay (drag by its header, minimize with `–`):
 - Frame slider, frame counter
 - ⏮ / ◀ / ▶▶(reverse play) / ▶▶(forward play) / ▶ / ⏭ / 🔁 (loop) buttons
 - **Speed** dropdown (0.25×–100×)
-- **Stride**: play/step every Nth frame. **Clear** permanently deletes the skipped frames from the loaded trajectory (main + motors + forces, if loaded) — this cannot be undone. It does not rewrite the original files, only the visualization scene. 
+- **Stride**: play/step every Nth frame. **Clear** permanently deletes the skipped frames from the loaded trajectory (main + motors + MT modifications + forces, if loaded) — this cannot be undone. It does not rewrite the original files, only the visualization scene. 
 
 ### Tools (measurements)
 Pick a tool, then click atoms in the 3D view:
@@ -99,11 +119,11 @@ Each label/distance/angle appears in its own list with **show/hide** and **delet
 - **⟲ Align View** — frames the camera on the currently loaded trajectory
 - **⟲ Reset Camera** — returns to the default camera position
 - **⟲Z / Z⟲** — roll the camera (or hold **Q**/**E**)
-- **🗑 Clear Scene** — wipes everything (main trajectory, motors, forces, components, annotations) so you can load a different system from scratch; asks for confirmation first
+- **🗑 Clear Scene** — wipes everything (main trajectory, motors, MT modifications, forces, components, annotations) so you can load a different system from scratch; asks for confirmation first
 
 ---
 
 ## Tips
-- The Configurator and Visualizer are independent — nothing carries over between them; export a `.conf` from the Configurator and feed the resulting simulation's PSF/DCD output into the Visualizer separately.
+- The Configurator and Visualizer are independent — nothing carries over between them; export a `conf.conf` from the Configurator and feed the resulting simulation's PSF/DCD output into the Visualizer separately.
 - All 3D viewports use standard **rotate / pan / zoom** mouse controls (see above).
 - Values described as "purely symbolic" in the Configurator's disclaimer (protein counts, etc.) are illustrative, not quantitatively accurate — scales, sizes, and orientations are the reliable part.
