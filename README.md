@@ -43,9 +43,8 @@ The 3D viewport updates live as you edit the geometry, MT, chromosome and regula
 - **⟲ Update & Align View** (top button): re-centers and reframes the camera on the current configuration.
 
 ### Exporting
-- **Download .conf**: saves your current parameters as `conf.conf`. The file is built from a built-in copy of the engine's reference config file, so the section headers, comments, blank lines, tab/space layout and Windows (CRLF) line endings are preserved and only the values change. One block of six lines (`kinetochoreN_move_x/y/z`, `xN/yN/zN_angle`) is written per chromosome (chromatids ÷ 2).
+- **Download .conf**: saves your current parameters as `conf.conf`. One block of six lines (`kinetochoreN_move_x/y/z`, `xN/yN/zN_angle`) is written per chromosome (chromatids ÷ 2).
 - The output file name placeholders (`output/dcd/<traj_name>.psf`, etc.) are kept as they are; the engine substitutes `traj_name`.
-- Three parameters that the Configurator had before, but that are not in the reference file, are still exported as extra lines: `kin_radius` and `contour_length` (after `kin_count`) and `auroraB` (after `auroraA`).
 - **Reset Configuration**: restores all parameters of the selected case (Prometaphase or One Centrosome) to their defaults.
 
 ---
