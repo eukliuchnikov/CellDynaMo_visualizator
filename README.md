@@ -51,14 +51,6 @@ The 3D viewport updates live as you edit the geometry, MT, chromosome and regula
 
 ## 2. Trajectory Visualizer
 
-```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
-```
-
 ### Getting started
 1. From the launcher, click **Trajectory Visualizer**.
 2. In the left panel, under **Load Files**, load your **PSF** (topology) file, then your **DCD** (trajectory) file. Playback and the 3D scene appear once both are loaded.
