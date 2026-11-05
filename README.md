@@ -28,7 +28,7 @@ Click a section header to expand/collapse it. *Run & Output* is open by default;
 | **Run & Output** | `device` (GPU id), `rseed` (random seed), `traj_name` (output name, used in the output file names), `total_t` (total simulation time, s), `dcd_freq` (a frame is saved every `<value>` s of cell time), `mt_len_output`, `membrane_shape` |
 | **Checkpoints** | `savecheckpoint`, `checkpoint_freq` (s of model time), `autocontinue` (restart from the last save if one exists), `timelapse_checkpoints` |
 | **Ellipsoid & Poles** | Cell shape (`ellipse_a/b/c`), spindle pole separation (`pole_distance`), pole size (`pole_radius`) and `pole_count` |
-| **Pole Dynamics** | `poles_free` (poles move due to thermal fluctuations), `poles_dist_rate` (nm/s) and `poles_angle_rate` (deg/s). The two rates are greyed out while `poles_free` is `no` |
+| **Pole Dynamics** | `poles_free` (poles move due to thermal fluctuations), `poles_dist_rate` (nm/s) and `poles_angle_rate` (deg/s). Unavailable if `poles_free` is `no` |
 | **Microtubules (MT)** | Number/thickness/length/color intensity of MT fibers per pole, `max_mt_length` (max number of cylinders in a microtubule), `start_length` (min initial MT length, nm) and number of K-fibers (length and color intensity are only for the visualizaton purposes and won't affect the configuration file) |
 | **Chromatid Core** | Number of chromatids (must be even), kinetochore radius, contour length |
 | **Chromosome Kinetics** | One sub-panel per chromosome — position (X/Y/Z) and orientation (X/Y/Z angle in radians). Panels rebuild automatically when you change the chromatid count |
