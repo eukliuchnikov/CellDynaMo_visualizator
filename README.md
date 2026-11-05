@@ -110,7 +110,7 @@ Each label/distance/angle appears in its own list with **show/hide** and **delet
 ### Camera controls (top toolbar)
 - **⟲ Align View** — frames the camera on the currently loaded trajectory
 - **⟲ Reset Camera** — returns to the default camera position
-- **⟲Z / Z⟲** — roll the camera (or hold **Q**/**E**)
+- **↻Z / Z↺** — roll the camera (or hold **Q**/**E**)
 - **🗑 Clear Scene** — wipes everything (main trajectory, motors, MT modifications, forces, components, annotations) so you can load a different system from scratch; asks for confirmation first
 
 ---
