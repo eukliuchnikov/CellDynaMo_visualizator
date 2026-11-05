@@ -71,7 +71,7 @@ The 3D viewport updates live as you edit the geometry, MT, chromosome and regula
   - Check **Show force inset window** to display it; drag it by its header, resize it with the corner handle or the Size fields, and minimize it with the `–` button.
 
 ### Components panel
-Every atom type found in the PSF (MT, kinetochores, chromatid bodies, poles, plus any loaded motors and MT modifications) gets its own row. The spindle pole is recognized by the atom name `Pole` (case-insensitive; `POLE`, `POL` and `pole1` are also accepted, in the name, segname, resname or type column):
+Every atom type found in the PSF (MT, kinetochores, chromatid bodies, poles, plus any loaded motors and MT modifications) gets its own row:
 - Checkbox to show/hide
 - Color swatch (click to open the color/brightness picker)
 - Atom index ranges shown (e.g. `Idx 1-40`)
