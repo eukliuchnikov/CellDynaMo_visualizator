@@ -84,7 +84,7 @@ Every atom type found in the PSF (MT, kinetochores, chromatid bodies, poles, plu
 Bottom-left overlay (drag by its header, minimize with `–`):
 - Frame slider, frame counter
 - ⏮ / ⪡ / ◀(reverse play) / ⏯(forward play) / ⪢ / ⏭ / ⟳ (loop) buttons
-- **Speed** dropdown (0.25×–100×)
+- **Speed** dropdown (0.25×–100×); High values are very resource-dependent and might not work exactly as desired.
 - **Stride**: play/step every Nth frame. **Clear** permanently deletes the skipped frames from the loaded trajectory (main + motors + MT modifications + forces, if loaded) — this cannot be undone. It does not rewrite the original files, only the visualization scene. 
 
 ### Tools (measurements)
