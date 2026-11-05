@@ -17,7 +17,7 @@ Use the **← back arrow** (top-left) to return to the launcher at any time, and
 2. Pick a case at the top of the left panel:
    - **Prometaphase** — fully supported (two spindle poles).
    - **One Centrosome** — fully supported (a single pole, drawn at (0, 0, 0) in the preview; see below).
-   - **Anaphase** — placeholder, marked "under development."
+   - **Anaphase** — under development.
 3. Once Prometaphase or One Centrosome is selected, the parameter panel and the live 3D preview appear.
 
 ### Parameter sections (left panel)
