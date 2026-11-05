@@ -36,7 +36,7 @@ Click a section header to expand/collapse it. *Run & Output* is open by default;
 | **Monte-Carlo & Chemistry** | `sv_size` (subvolume size, nm), MT rate constants `k_growth`, `k_shorten`, `k_catastrophe`, `k_rescue` (1/s), `aurora_concentration` and `phosphatase_concentration` (µM) |
 | **Langevin Dynamics** | `lang_ts` (time step, ps), spring constants `k_spring_mt` and `k_spring_kt` (pN/nm), `k_stiff_mem` (membrane repulsion, pN), `temp` (K), `viscosity` |
 
-The 3D viewport updates live as you edit the geometry, MT, chromosome and regulatory-protein values (the run, checkpoint, Monte-Carlo and Langevin parameters only go into the exported file). A legend appears bottom-left whenever any regulatory protein is enabled.
+The 3D viewport updates live as you edit the geometry, MT, chromosome and regulatory-protein values (the run, checkpoint, Monte-Carlo and Langevin parameters only go into the exported file). If regulatory-protein values are enabled, a legend is available.
 
 ### Prometaphase vs One Centrosome
 - **Prometaphase** writes `one_pole_spindle no`; **One Centrosome** writes `one_pole_spindle yes`.
